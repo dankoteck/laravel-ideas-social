@@ -8,6 +8,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('home', ['ideas' => Ideas::orderBy('id', 'desc')->cursorPaginate(2)]);
+        $ideas = Ideas::orderBy('created_at', 'desc');
+
+        if (request()->has('search')) {
+            $ideas = $ideas->where('description', 'like', request()->get('search'));
+        }
+
+        return view('home', ['ideas' => $ideas->paginate(2)]);
     }
 }

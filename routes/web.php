@@ -1,10 +1,25 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IdeasController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('idea.getAll');
+/** VIEWS */
+Route::get('/', [HomeController::class, 'index'])->name('idea.index');
 
-Route::post('/ideas', [IdeasController::class, 'store'])->name('idea.createOne');
+Route::get('/ideas/{id}', [IdeasController::class, 'show'])->name('idea.show');
+
+Route::get('/ideas/{id}/edit', [IdeasController::class, 'edit'])->name('idea.edit');
+/** VIEWS */
+
+
+/** APIs */
+Route::post('/ideas', [IdeasController::class, 'store'])->name('idea.store');
+
+Route::put('/ideas/{id}', [IdeasController::class, 'update'])->name('idea.update');
+
+Route::delete('/ideas/{id}', [IdeasController::class, 'destroy'])->name('idea.destroy');
+
+Route::post('/ideas/{id}/comments', [CommentController::class, 'store'])->name('ideas.comments.store');
+/** APIs */

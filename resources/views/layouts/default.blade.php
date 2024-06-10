@@ -11,7 +11,9 @@
 
 <body class="w-full h-full">
     <main class="w-full h-full">
-        @yield('content')
+        <section class="container">
+            @yield('content')
+        </section>
     </main>
 </body>
 
