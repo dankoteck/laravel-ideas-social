@@ -20,30 +20,22 @@ class IdeasController extends Controller
 
     public function store()
     {
-        request()->validate([
+        $validated = request()->validate([
             'title' => 'required|min:1|max:10',
             'description' => 'required|min:1|max:20'
         ]);
-
-
-        Ideas::create([
-            'title' => request()->get('title'),
-            'description' => request()->get('description', '')
-        ]);
+        Ideas::create($validated);
 
         return redirect()->route('idea.index')->with('success', 'Idea created successfully');
     }
 
     public function update(Ideas $id)
     {
-        request()->validate([
+        $validated = request()->validate([
             'title' => 'required|min:1|max:10',
             'description' => 'required|min:1|max:20'
         ]);
-
-        $id->title = request()->get('title');
-        $id->description = request()->get('description');
-        $id->save();
+        $id->update($validated);
 
         return redirect()->route('idea.show', $id)->with('updated_success', 'Idea updated successfully');
     }
