@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-    <h1 class="text-3xl font-bold">Hello World!</h1>
+    <h1 class="text-3xl font-bold">CRUD Ideas!</h1>
 
     @if (session()->has('success'))
         <p class="text-green-500 text-lg">
@@ -22,12 +22,15 @@
         @endforeach
     </div>
 
+
     {{ $ideas->links() }}
 
 
     <hr class="my-8" />
 
-    @include ('include.form-message')
-    @include ('include.search-input')
-    @include ('include.form-add')
+    @auth()
+        @include ('include.form-message')
+        @include ('include.search-input')
+        @include ('include.form-add')
+    @endauth
 @endsection

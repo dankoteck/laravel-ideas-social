@@ -7,8 +7,7 @@
     <ul class="">
         @foreach ($idea->comments as $comment)
             <li>
-                <p class="">Created at {{ $idea->created_at }}</p>
-                <p class="">Updated at {{ $idea->updated_at }}</p>
+                <p class="">Created by {{ $comment->users->name }}</p>
                 <p class="">{{ $comment->content }}</p>
             </li>
         @endforeach

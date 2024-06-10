@@ -24,6 +24,23 @@ CREATE TABLE `cache_locks` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comments` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `idea_id` bigint unsigned NOT NULL,
+  `content` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `user_id` bigint unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `comments_idea_id_foreign` (`idea_id`),
+  KEY `comments_user_id_foreign` (`user_id`),
+  CONSTRAINT `comments_idea_id_foreign` FOREIGN KEY (`idea_id`) REFERENCES `ideas` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `comments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `failed_jobs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -48,6 +65,7 @@ CREATE TABLE `ideas` (
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `user_id` bigint unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -130,8 +148,11 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `idea_id` bigint unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
+  UNIQUE KEY `users_email_unique` (`email`),
+  KEY `users_idea_id_foreign` (`idea_id`),
+  CONSTRAINT `users_idea_id_foreign` FOREIGN KEY (`idea_id`) REFERENCES `ideas` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -146,3 +167,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (2,'0001_01_01_0000
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (3,'0001_01_01_000002_create_jobs_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (4,'2024_06_09_053724_create_ideas_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (5,'2024_06_09_160535_pull-source',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (20,'2024_06_10_074210_add_ideas_id_to_users_table',2);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (46,'2024_06_10_025327_create_comments_table',3);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (47,'2024_06_10_082605_update_users_table',3);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (48,'2024_06_10_083436_add_column_user_id_table_ideas',3);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (53,'2024_06_10_084350_table_comments_add_column_user_id',4);

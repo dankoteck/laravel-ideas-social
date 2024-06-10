@@ -25,7 +25,7 @@
                 @endauth
 
                 @guest
-                    <a href="{{ route('auth.login') }}">Login</a>
+                    <a href="{{ route('login') }}">Login</a>
                 @endguest
             </nav>
         </aside>

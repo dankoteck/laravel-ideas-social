@@ -47,7 +47,7 @@ class AuthController extends Controller
             return redirect()->route('idea.index')->with('success', 'Logged in successfully');
         }
 
-        return redirect()->route('auth.login')->withErrors([
+        return redirect()->route('login')->withErrors([
             'email' => 'The provided email address is invalid.',
         ]);
     }
@@ -55,6 +55,9 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
+
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
 
         return redirect()->route('idea.index')->with('success', 'Logged out successfully');
     }

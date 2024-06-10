@@ -13,8 +13,6 @@ class IdeasController extends Controller
 
     public function show(Ideas $id)
     {
-        $id->comments()->orderBy('created_at', 'desc')->get();
-
         return view('detail', ['idea' => $id]);
     }
 
@@ -24,6 +22,9 @@ class IdeasController extends Controller
             'title' => 'required|min:1|max:10',
             'description' => 'required|min:1|max:20'
         ]);
+
+        $validated['user_id'] = auth()->id();
+
         Ideas::create($validated);
 
         return redirect()->route('idea.index')->with('success', 'Idea created successfully');

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ideas;
-use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
@@ -13,8 +12,11 @@ class CommentController extends Controller
             'comment' => 'required'
         ]);
 
-        $id->comments()->create($validated);
-        $id->save();
+        $validated['idea_id'] = $id->id;
+        $validated['user_id'] = auth()->id();
+        $validated['content'] = $validated['comment'];
+
+        $id->comments()->create($validated)->save();
 
         return redirect()->route('idea.show', $id);
     }
