@@ -27,7 +27,7 @@ class IdeasController extends Controller
 
         Ideas::create($validated);
 
-        return redirect()->route('idea.index')->with('success', 'Idea created successfully');
+        return redirect()->route('ideas.index')->with('success', 'Idea created successfully');
     }
 
     public function update(Ideas $id)
@@ -38,13 +38,13 @@ class IdeasController extends Controller
         ]);
         $id->update($validated);
 
-        return redirect()->route('idea.show', $id)->with('updated_success', 'Idea updated successfully');
+        return redirect()->route('ideas.show', $id)->with('updated_success', 'Idea updated successfully');
     }
 
     public function destroy(Ideas $id)
     {
         $id->delete();
 
-        return redirect()->route('idea.index')->with('success', 'Idea deleted successfully');
+        return redirect()->route('ideas.index')->with('success', 'Idea deleted successfully');
     }
 }

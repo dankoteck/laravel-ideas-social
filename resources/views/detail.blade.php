@@ -1,8 +1,8 @@
 <section class="">
     <h1 class="">{{ $idea->title }}</h1>
     <p>{{ $idea->description }}</p>
-    <a href="{{ route('idea.index') }}" class="text-gray-500">Back</a>
-    <a href="{{ route('idea.edit', $idea->id) }}" class="text-blue-500">Edit</a>
+    <a href="{{ route('ideas.index') }}" class="text-gray-500">Back</a>
+    <a href="{{ route('ideas.edit', $idea->id) }}" class="text-blue-500">Edit</a>
 
     <ul class="">
         @foreach ($idea->comments as $comment)

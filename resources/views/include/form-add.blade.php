@@ -1,4 +1,4 @@
-<form class="flex flex-col items-center justify-center" action="{{ route('idea.store') }}" method="post">
+<form class="flex flex-col items-center justify-center" action="{{ route('ideas.store') }}" method="post">
     @csrf
     <input type="text" name="title" placeholder="Title" class="border-2 border-gray-300 rounded-md p-2">
     @error('title')

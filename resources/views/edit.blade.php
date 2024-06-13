@@ -1,4 +1,4 @@
-<form action="{{ route('idea.update', $idea->id) }}" class="" method="POST">
+<form action="{{ route('ideas.update', $idea->id) }}" class="" method="POST">
     @csrf
     @method('PUT')
     <input value="{{ $idea->title }}" name="title" />

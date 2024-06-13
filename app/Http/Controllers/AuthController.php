@@ -31,7 +31,7 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('idea.index')->with('success', 'User created successfully');
+        return redirect()->route('ideas.index')->with('success', 'User created successfully');
     }
 
     public function index()
@@ -44,7 +44,7 @@ class AuthController extends Controller
         if (auth()->attempt($credentials)) {
             request()->session()->regenerate();
 
-            return redirect()->route('idea.index')->with('success', 'Logged in successfully');
+            return redirect()->route('ideas.index')->with('success', 'Logged in successfully');
         }
 
         return redirect()->route('login')->withErrors([
@@ -59,6 +59,6 @@ class AuthController extends Controller
         request()->session()->invalidate();
         request()->session()->regenerateToken();
 
-        return redirect()->route('idea.index')->with('success', 'Logged out successfully');
+        return redirect()->route('ideas.index')->with('success', 'Logged out successfully');
     }
 }

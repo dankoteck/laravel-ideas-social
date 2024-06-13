@@ -18,6 +18,6 @@ class CommentController extends Controller
 
         $id->comments()->create($validated)->save();
 
-        return redirect()->route('idea.show', $id);
+        return redirect()->route('ideas.show', $id);
     }
 }
