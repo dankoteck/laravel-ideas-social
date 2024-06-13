@@ -22,12 +22,12 @@ class IdeasController extends Controller
 
     public function show(Ideas $idea)
     {
-        return view('detail', ['idea' => $idea]);
+        return view('detail', compact('idea'));
     }
 
     public function edit(Ideas $idea)
     {
-        return view('edit', ['idea' => $idea]);
+        return view('edit', compact('idea'));
     }
 
     public function update(Ideas $idea)

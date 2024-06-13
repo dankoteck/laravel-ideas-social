@@ -10,7 +10,7 @@
     @endif
 
     <div class="space-y-4">
-        @foreach ($ideas as $idea)
+        @forelse ($ideas as $idea)
             <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}" class="flex items-center gap-2">
                 @csrf
                 @method('DELETE')
@@ -19,12 +19,13 @@
                 <button class="bg-red-500 rounded-md py-1 px-3 text-white" type="submit">X</button>
             </form>
             <a href="{{ route('ideas.show', $idea->id) }}" class="text-blue-500">View</a>
-        @endforeach
+
+        @empty
+            <p class="">No ideas yet.</p>
+        @endforelse
     </div>
 
-
-    {{ $ideas->links() }}
-
+    {{ $ideas->withQueryString()->links() }}
 
     <hr class="my-8" />
 
