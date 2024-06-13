@@ -1,4 +1,4 @@
-<form action="{{ route('ideas.comments.store', $idea->id) }}" method="POST" class="">
+<form action="{{ route('ideas.comments.store', $idea) }}" method="POST" class="">
     @csrf
     @method('POST')
 

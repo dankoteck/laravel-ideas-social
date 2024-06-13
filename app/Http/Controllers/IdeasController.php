@@ -6,16 +6,6 @@ use App\Models\Ideas;
 
 class IdeasController extends Controller
 {
-    public function edit(Ideas $id)
-    {
-        return view('edit', ['idea' => $id]);
-    }
-
-    public function show(Ideas $id)
-    {
-        return view('detail', ['idea' => $id]);
-    }
-
     public function store()
     {
         $validated = request()->validate([
@@ -30,20 +20,30 @@ class IdeasController extends Controller
         return redirect()->route('ideas.index')->with('success', 'Idea created successfully');
     }
 
-    public function update(Ideas $id)
+    public function show(Ideas $idea)
+    {
+        return view('detail', ['idea' => $idea]);
+    }
+
+    public function edit(Ideas $idea)
+    {
+        return view('edit', ['idea' => $idea]);
+    }
+
+    public function update(Ideas $idea)
     {
         $validated = request()->validate([
             'title' => 'required|min:1|max:10',
             'description' => 'required|min:1|max:20'
         ]);
-        $id->update($validated);
+        $idea->update($validated);
 
-        return redirect()->route('ideas.show', $id)->with('updated_success', 'Idea updated successfully');
+        return redirect()->route('ideas.show', $idea)->with('updated_success', 'Idea updated successfully');
     }
 
-    public function destroy(Ideas $id)
+    public function destroy(Ideas $idea)
     {
-        $id->delete();
+        $idea->delete();
 
         return redirect()->route('ideas.index')->with('success', 'Idea deleted successfully');
     }
